@@ -33,24 +33,32 @@ curl 'wallet.videm.com/api/v1/apps/zarinpal/deposit' \
 ## application journey
 
 0- Permissions
-    <> - create 1 wallet for myself (income wallet)
-    <> - create 1 wallet for myself (normal wallet)
-    - create many wallets for myself
-    - create wallet for user
-    - create proposal from (self) wallet to user wallet (currency)
-    - create proposal from (user) wallet 
-    - create holds (currency)
 
-    - release wallet hold (self created)
-    - release wallet hold (other created)
+<!---
+- create 1 wallet for myself (income wallet)
+- create 1 wallet for myself (normal wallet)
+ -->
+- (not yet) create many wallets for myself
+- (not yet) create wallet for user
+- create proposal from (self) wallet to (user) wallet (currency) (ipg)
+- create proposal from (user) wallet to (self) wallet (shop)
+- (not yet) create proposal from (user) wallet to (user) wallet (exchange)
+- (not yet) create holds (currency) (escrow account)
 
-    - read wallets amount (currency)
-    - read proposals (myself)
-    - read proposals (all)
-    - read transactions (myself)
-    - read transactions (other wallets)
-    - read holds (self created)
-    - read holds (others created)
+- (not yet) release wallet hold (self created)
+- (not yet) release wallet hold (other created)
+
+- read wallets amount (currency)
+- read proposals (myself)
+- (not yet) read proposals (all)
+- read transactions (myself)
+- (not yet) read transactions (other wallets)
+- (not yet) read holds (self created)
+- (not yet) read holds (others created)
+
+### app permissions
+- add item to shop 
+- webhook on basket item success
 
 
 1- create application in ufaas-core
@@ -61,5 +69,36 @@ curl 'wallet.videm.com/api/v1/apps/zarinpal/deposit' \
     - api doc
 
 2- business Pixiee
-    - oauth request (core) --> USSO (permission requests) --> accept (user) --> generate application token to access business data
-    - app --> post wallet (user_id) 
+    - core add route application to business faas
+    - core create wallets for app + business profile + extra needed data --> app / business
+    - oauth request (core) --> (redirect to app) --> USSO (permission requests) --> accept (user) --> sso accept --> app --> core
+
+3- app (ipg) working
+
+app1 (X) 
+user --> SSO (app1, X) --> accept or reject
+
+## option 1
+(bus) Watch video --> usage (saas) --> reject
+(bus) --> (shop) add product to basket {callback: watch video item, webhook: create enrollment for user} ==> (shop) basket 
+...
+(shop) ==> (ipg_handler) payment link please! {callback: shop basket_id} ==>
+(ipg_handler) ==> ipg
+ipg ==> (ipg_handler) verify --> ipg
+(ipg_handler) ==> (shop) basket_id verify --> (ipg_handler)
+    --> call all webhooks of items
+        --> (saas) creation verify --> create enroll
+(shop) ==> (bus) callback: watch video item --> usage --> accept
+
+## option 2
+
+(bus) Watch video --> usage (saas) --> reject
+(bus) ==> (saas) create enrollment {callback: watch video item} --> (shop) add product to basket {webhook: create enrollment for user} ==> (shop) basket_id
+...
+(shop) ==> (ipg_handler) payment link please! {callback: shop basket_id} ==>
+(ipg_handler) ==> ipg
+ipg ==> (ipg_handler) verify --> ipg
+(ipg_handler) ==> (shop) basket_id verify --> (ipg_handler)
+    --> call all webhooks of items
+        --> (saas) creation verify --> create enroll
+(shop) ==> (bus) callback: watch video item --> usage --> accept
