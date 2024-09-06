@@ -91,7 +91,6 @@ ipg ==> (ipg_handler) verify --> ipg
 (shop) ==> (bus) callback: watch video item --> usage --> accept
 
 ## option 2
-
 (bus) Watch video --> usage (saas) --> reject
 (bus) ==> (saas) create enrollment {callback: watch video item} --> (shop) add product to basket {webhook: create enrollment for user} ==> (shop) basket_id
 ...
