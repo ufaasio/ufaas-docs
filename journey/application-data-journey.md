@@ -61,7 +61,7 @@ curl 'wallet.videm.com/api/v1/apps/zarinpal/deposit' \
 - webhook on basket item success
 
 
-1- create application in ufaas-core
+1- create application in ufaas application marketplace
     - set base_url (wallet.pixiee.io/api/v1/apps/zarinpal --> ipg.zarinpal.inbeet.tech)
     - set developer id from JWT
     - permission requests (create proposal from ipg wallet)
