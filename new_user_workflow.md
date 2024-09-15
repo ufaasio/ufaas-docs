@@ -1,7 +1,7 @@
 Journey for new user:
 
 1. setup domain address settings:
-    # for example { domain: pixiee.io, sso_domain: sso, finance_domain: wallet }
+    - `for example { domain: pixiee.io, sso_domain: sso, finance_domain: wallet }`
     - TXT record, usso-challenge.{sso_domain} -> {random generated uuid}
     - CNAME record, {sso_domain}.{core_domain} -> relay.usso.io
     - TXT record, ufaas-challenge.{finance_domain} -> {random generated uuid}
@@ -19,7 +19,7 @@ Journey for new user:
     - Add domain to ufaas domains
     - Create business on ufaas core
     - Create business on ufaas api-os
-    # install extension (zarinpal)
+    - `install extension (zarinpal)`
         - Create business on ufaas extension (setup secrets and config)
         - in api-os: Create installed object in api-os for extension and business
         - in core: setup extension wallets
