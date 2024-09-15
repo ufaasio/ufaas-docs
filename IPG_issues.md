@@ -4,9 +4,9 @@ create proposal
 --> redirect to callback
 
 issues:
-income wallet
-ipg token (SSO)
-redirect to callback
+(done) income wallet
+ipg token (SSO) --> sso domain!
+(done) redirect to callback
 
 
 # get all ipg apps

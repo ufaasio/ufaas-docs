@@ -29,7 +29,7 @@ extension --> (apios / domain! --> platform!)
 developer --> api_OS
     create extension {*scopes, *name, privacy-policy, developer_email, ...} -->
     api_OS {api_OS_token} --> sso_platform --> {app_id, app_secret} --> developer
-    # api_OS {} --> sso_platform --> {pub_key} --> developer
+<!--- api_OS {} -- > sso_platform -- > {pub_key} -- > developer -->
 
     implement `base_url/api/v1/apps/[name]/{path}`
 
@@ -37,13 +37,12 @@ developer --> api_OS
 business_owner --> api_OS
     list extensions --> {names}
     install extension {name} --> api_OS
-    
         api_OS register ext {name} --> platform[business] {p_data} # --> wallet creation
-        api_OS create business {p_data, zarinpal_token, business_name, sso_platform} --> extension
-        # api_OS create extension_user {app_id, app_secret} --> sso_business 
-        # api_OS create extension_user {pub_key} --> sso_business 
+        api_OS create business {p_data, zarinpal_token, business_sso_url, sso_platform} --> extension
+<!---   api_OS create extension_user {app_id, app_secret} -- > sso_business 
+        # api_OS create extension_user {pub_key} -- > sso_business -->
 
 # use extension
 extension --> platform[business]
-    extension get access_token {app_id, hash(app_secret), business_name} --> sso_platform {business_name, app_id} --> api_OS { is_installed: true } --> { access_token }
-    extension {token} --> platform[business]
+    extension get access_token {app_id, hash(app_secret, timestamp), timestamp, business_sso_url} --> sso_platform { business_sso_url, app_id } --> api_OS { is_installed: true } --> { access_token (business_sso_url) }
+    extension {access_token} --> platform[business]
