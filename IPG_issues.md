@@ -5,7 +5,7 @@ create proposal
 
 issues:
 (done) income wallet
-ipg token (SSO) --> sso domain!
+(done) ipg token (SSO) --> sso domain!
 (done) redirect to callback
 
 

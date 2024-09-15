@@ -18,13 +18,15 @@ Journey for new user:
 3. Create UFaaS account
     - Add domain to ufaas domains
     - Create business on ufaas core
+        - create wallet for business with meta_data
     - Create business on ufaas api-os
     # install extension (zarinpal)
         - Create business on ufaas extension (setup secrets and config)
         - in api-os: Create installed object in api-os for extension and business
         - in core: setup extension wallets
-            - income wallet
-            - extension wallet
+            - extension wallet (user_id = extension user_id)
+            - income wallet (user_id = extension user_id)
+            - set meta_data for ext wallets
     - check sample transaction on the system
 
 
